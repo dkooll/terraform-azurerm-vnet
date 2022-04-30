@@ -1,6 +1,6 @@
 ## Virtual Network `[Microsoft.Network/virtualNetworks]`
 
-Terraform module which creates VNET resources on Azure. It is able to create multiple vnets. On each vnet is is possible to add multiple subnets. On each subnet a nsg is created, which contains security rules.
+Terraform module which creates VNET resources on Azure.
 
 ## Table of Contents
 
