@@ -10,7 +10,7 @@ This module deploys an Virtual Network.
   - [Inputs](#inputs)
     - [Input Usage: `network`](#inputs-usage-network)
   - [Outputs](#outputs)
-  - [Template references](#template-references)
+  - [References](#references)
 
 ## Resources
 
@@ -26,8 +26,8 @@ This module deploys an Virtual Network.
 ## Inputs
 
 | Name | Description | Type | Required |
-|------|-------------|------|---------|:--------:|
-| `vnetName` | describes vnet related configuration | object | yes
+| :-- | :-- |
+| `azurerm_resource_group` | describes vnet related configuration | object | yes |
 
 ### Input Usage: `network`
 
@@ -63,16 +63,4 @@ network = {
 
 ## Outputs
 
-| Output Name | Type | Description |
-| :-- | :-- | :-- |
-| `virtualNetworkName` | string | The name of the virtual network |
-| `virtualNetworkResourceId` | string | The resourceId of the virtual network |
-| `subnetNames` | array | The names of the subnets |
-| `subnetIds` | array | The resourceId of the subnets |
-
-
-## Template references
-
-- [virtualnetworks](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/virtualnetworks?tabs=bicep)
-- [nsg](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/networksecuritygroups?tabs=bicep)
-- [nsgrules](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/networksecuritygroups/securityrules?tabs=bicep)
+## References
