@@ -26,7 +26,7 @@ This module deploys an Virtual Network.
 ## Inputs
 
 | Name | Description | Type | Required |
-| :-- | :-- |
+| :-- | :-- | :-- | :-- |
 | `azurerm_resource_group` | describes vnet related configuration | object | yes |
 
 ### Input Usage: `network`
