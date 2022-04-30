@@ -2,10 +2,10 @@
 
 Terraform module which creates VNET resources on Azure. It's main feature includes:
 
-`seperate config from module`
-`multiple VNETs`
-`multiple subnets per VNET`
-`NSG per subnet`
+`seperate config from module`  
+`multiple VNETs`  
+`multiple subnets per VNET`  
+`NSG per subnet`  
 `multiple security rules per NSG`
 
 ## Table of Contents
