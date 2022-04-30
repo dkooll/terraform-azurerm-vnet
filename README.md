@@ -1,6 +1,6 @@
 ## Virtual Network `[Microsoft.Network/virtualNetworks]`
 
-This module deploys an Virtual Network.
+Terraform module which creates VNET resources on Azure. The config is seperated from the module, and within the data structure it is possible to declare multiple vnets. Each one contain multiple subnets. A network security group is created for each subnet and contains security rules.
 
 ## Table of Contents
 
@@ -8,7 +8,7 @@ This module deploys an Virtual Network.
   - [**Table of Contents**](#table-of-contents)
   - [Resources](#resources)
   - [Inputs](#inputs)
-    - [Input Usage: `network`](#inputs-usage-network)
+    - [Usage: `network`](#inputs-usage-network)
   - [Outputs](#outputs)
   - [References](#references)
 
@@ -29,7 +29,7 @@ This module deploys an Virtual Network.
 | :-- | :-- | :-- | :-- |
 | `azurerm_resource_group` | describes vnet related configuration | object | yes |
 
-### Input Usage: `network`
+### Usage: `network`
 
 ```terraform
 network = {
