@@ -6,14 +6,14 @@ Terraform module which creates VNET resources on Azure.
 
 - [Virtual Network](#virtual-network)
   - [**Table of Contents**](#table-of-contents)
-  - [Features](#features)
+  - [Key features](#key-features)
   - [Resources](#resources)
   - [Inputs](#inputs)
     - [Usage: `network`](#inputs-usage-network)
   - [Outputs](#outputs)
   - [References](#references)
 
-## Features
+## Key features
 
 - seperate config from module
 - multiple VNETs
