@@ -25,9 +25,9 @@ This module deploys an Virtual Network.
 
 ## Inputs
 
-| Name | Type | Description | Required
-| :-- | :-- | :-- | :-- | :-- |
-| `vnetName` | object |  |  | describes vnet related configuration | yes
+| Name | Description | Type | Required |
+|------|-------------|------|---------|:--------:|
+| `vnetName` | describes vnet related configuration | object | yes
 
 ### Input Usage: `network`
 
