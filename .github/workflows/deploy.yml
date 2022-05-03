@@ -8,6 +8,7 @@ on:
       - 'tests/*.go'
       - '*.tf'
       - '*.md'
+    paths-ignore:
       - '!.github/**'
 
 jobs:
