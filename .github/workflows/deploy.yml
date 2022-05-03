@@ -3,8 +3,42 @@ name: deploy
 on:
   workflow_dispatch:
 
+# jobs:
+#   deploy:
+#     name: deploy
+#     runs-on: ubuntu-latest
+#     environment : development
+#     env:
+#       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+#       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+#       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+#       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       # - name: az cli login
+#       #   uses: azure/login@v1
+#       #   with:
+#       #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#       - uses: actions/setup-go@v1
+#         with:
+#           go-version: 1.13
+
+#       - name: setup terraform
+#         uses: hashicorp/setup-terraform@v1
+
+#       - name: Download Go Modules
+#         working-directory: tests
+#         run: go mod download
+
+#       - name: Run Go Tests
+#         working-directory: tests
+#         run: go test -timeout 99999s
+
 jobs:
-  deploy:
+  full_ci:
     name: deploy
     runs-on: ubuntu-latest
     environment : development
@@ -13,18 +47,18 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    strategy:
+      matrix:
+        go_version: [ 1.18.x ]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
 
-      # - name: az cli login
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - uses: actions/setup-go@v1
+      - name: Set up Go
+        uses: actions/setup-go@v3
         with:
-          go-version: 1.13
+          go-version: ${{ matrix.go_version }}
 
       - name: setup terraform
         uses: hashicorp/setup-terraform@v1
@@ -33,13 +67,13 @@ jobs:
         working-directory: tests
         run: go mod download
 
-      # - name: Run Go Tests
-      #   working-directory: tests
-        #run: go test -timeout 99999s
-        #run: gotestsum --format short-verbose -- -timeout 99999s
-      - name: Setup gotestsum
-        uses: autero1/action-gotestsum@v1.0.0
-
-      - name: Interact with gotestsum
+      - name: run tests
         working-directory: tests
-        run: gotestsum --format short-verbose
+        run: go test -json ./... > test.json -timeout 99999s
+
+      - name: Annotate tests
+        if: always()
+        uses: guyarb/golang-test-annotations@v0.5.1
+        with:
+          test-results: test.json
+          package-name: foobar # optional, if using custom package name, github.com/owner/repo stripped from the pathname by default
