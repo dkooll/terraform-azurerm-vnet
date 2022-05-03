@@ -10,7 +10,7 @@ on:
 
 jobs:
   validate:
-    name: fmt
+    name: validate
     runs-on: ubuntu-latest
     environment : development
 
@@ -37,8 +37,7 @@ jobs:
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
-          # directory: ./
-          soft_fail: true
+          soft_fail: false
 
   terratest:
     name: deploy
