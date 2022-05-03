@@ -33,7 +33,14 @@ jobs:
         working-directory: tests
         run: go mod download
 
-      - name: Run Go Tests
-        working-directory: tests
+      # - name: Run Go Tests
+      #   working-directory: tests
         #run: go test -timeout 99999s
-        run: gotestsum --format short-verbose -- -timeout 99999s
+        #run: gotestsum --format short-verbose -- -timeout 99999s
+      - name: Setup gotestsum
+        uses: autero1/action-gotestsum@v0.1.0
+        with:
+          gotestsum_version: 0.4.1
+      - name: Interact with gotestsum
+        working-directory: tests
+        run: gotestsum --format short-verbose
