@@ -1,10 +1,12 @@
-name: deploy
+name: validate
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  validate:
     name: deploy
     runs-on: ubuntu-latest
     environment : development
