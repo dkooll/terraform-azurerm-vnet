@@ -29,3 +29,7 @@ jobs:
       - name: terraform plan
         id: plan
         run: terraform plan
+
+      - name: terraform apply
+        id: apply
+        run: terraform apply --auto-approve --parallelism=2
