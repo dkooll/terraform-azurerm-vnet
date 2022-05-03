@@ -18,5 +18,3 @@ func TestTerraformAwsHelloWorldExample(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 }
-
-//go test -timeout 99999s

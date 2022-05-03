@@ -1,0 +1,69 @@
+name: validate
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '*.md'
+
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    environment : development
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: terraform init
+        id: init
+        run: terraform init
+
+      - name: terraform validate
+        id: validate
+        run: terraform validate
+
+      - name: terraform fmt
+        id: fmt
+        run: terraform fmt -check -recursive
+        continue-on-error: false
+
+      - name: checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          soft_fail: false
+
+  terratest:
+    name: deploy
+    needs: validate
+    runs-on: ubuntu-latest
+    environment : development
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Download Go Modules
+        working-directory: tests
+        run: go mod download
+
+      - name: Run Go Tests
+        working-directory: tests
+        run: go test -timeout 99999s
