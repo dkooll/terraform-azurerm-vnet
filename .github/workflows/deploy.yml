@@ -1,11 +1,11 @@
-name: Deploy
+name: deploy
 
 on:
   workflow_dispatch:
 
 jobs:
-  validate:
-    name: validate
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
     environment : development
 
@@ -16,3 +16,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: terraform init
+        id: init
+        run: terraform init
+
+      - name: terraform plan
+        id: plan
+        run: terraform plan
