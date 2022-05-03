@@ -8,7 +8,7 @@ on:
       - 'tests/*.go'
       - '*.tf'
       - '*.md'
-      - '!*/.github/**'
+      - '!.github/**'
 
 jobs:
   validate:
