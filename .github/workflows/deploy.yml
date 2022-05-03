@@ -4,12 +4,9 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'tests/*.go'
-      - '*.tf'
-      - '*.md'
     paths-ignore:
-      - '!.github/**'
+      - '.github/**'
+      - '*.md'
 
 jobs:
   validate:
