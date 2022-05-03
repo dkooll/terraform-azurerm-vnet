@@ -6,7 +6,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func ValidateDeployment(t *testing.T) {
+func TestTerraformAwsHelloWorldExample(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
