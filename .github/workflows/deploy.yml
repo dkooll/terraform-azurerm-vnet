@@ -10,7 +10,32 @@ on:
 
 jobs:
   validate:
+    name: fmt
+    runs-on: ubuntu-latest
+    environment : development
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: terraform fmt
+        id: fmt
+        run: terraform fmt -check -recursive
+        continue-on-error: false
+        working-directory: ./
+
+      - name: checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: ./
+          soft_fail: true
+
+  terratest:
     name: deploy
+    needs: validate
     runs-on: ubuntu-latest
     environment : development
     env:
