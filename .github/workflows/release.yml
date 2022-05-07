@@ -6,6 +6,7 @@ on:
       - main
     types:
       - closed
+  workflow_dispatch:
     inputs:
       sourceBranchName:
         description: Name of the source branch, to determine semver (usually github.head_ref).
