@@ -1,4 +1,4 @@
-variable "network" {}
+variable "vnets" {}
 variable "env" {
   default = "dev"
 }

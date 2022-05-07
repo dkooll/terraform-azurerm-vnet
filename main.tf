@@ -16,11 +16,11 @@ resource "azurerm_resource_group" "rg" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "vnets" {
-  for_each = var.network
+  for_each = var.vnets
 
-  name                = "vnet-${var.env}-${each.key}-001"
+  name                = "vnet-${var.env}-${each.value.location}-001"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = each.key
+  location            = each.value.location
   address_space       = each.value.cidr
 }
 
@@ -29,7 +29,7 @@ resource "azurerm_virtual_network" "vnets" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
-  for_each = var.network
+  for_each = var.vnets
 
   virtual_network_id = azurerm_virtual_network.vnets[each.key].id
   dns_servers        = lookup(each.value, "dns", null)
@@ -41,7 +41,7 @@ resource "azurerm_virtual_network_dns_servers" "dns" {
 
 locals {
   network_subnets = flatten([
-    for network_key, network in var.network : [
+    for network_key, network in var.vnets : [
       for subnet_key, subnet in network.subnets : {
 
         network_key          = network_key
@@ -49,7 +49,7 @@ locals {
         address_prefixes     = subnet.cidr
         subnet_name          = "sn-${var.env}-${network_key}-001"
         nsg_name             = "nsg-${var.env}-${network_key}-001"
-        location             = network_key
+        location             = network.location
         endpoints            = subnet.endpoints
         rules                = subnet.rules
         delegations          = subnet.delegations
