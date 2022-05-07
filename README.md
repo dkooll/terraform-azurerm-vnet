@@ -1,3 +1,5 @@
+![example workflow](https://github.com/dkooll/terraform-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
+
 ## Virtual Network `[Microsoft.Network/virtualNetworks]`
 
 Terraform module which creates VNET resources on Azure.
