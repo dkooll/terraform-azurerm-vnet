@@ -8,7 +8,9 @@ Terraform module which creates VNET resources on Azure.
   - [**Table of Contents**](#table-of-contents)
   - [Resources](#resources)
   - [Inputs](#inputs)
-    - [Usage: `network`](#inputs-usage-network)
+    - [Usage: `single vnet multiple dns`](#inputs-usage-single-vnet-multiple-dns)
+    - [Usage: `single vnet multiple subnets`](#inputs-usage-single-vnet-multiple-subnets)
+    - [Usage: `multiple vnets single subnet with endpoints`](#inputs-usage-multiple-vnets-single-subnet-with-endpoints)
   - [Outputs](#outputs)
   - [References](#references)
 
@@ -27,40 +29,96 @@ Terraform module which creates VNET resources on Azure.
 
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
-| `azurerm_resource_group` | describes vnet related configuration | object | yes |
+| `vnets` | describes vnet related configuration | object | yes |
 
-### Usage: `network`
+### Usage: `single vnet multiple dns`
 
 ```terraform
-network = {
-  westeurope = {
-    cidr = ["10.18.0.0/16"]
-    dns  = ["8.8.8.8"]
-    subnets = {
-      sn1 = {
-        cidr      = ["10.18.1.0/24"]
-        endpoints = []
-        delegations = []
-        rules = []
-      }
-    }
-  }
-
-  eastus2 = {
-    cidr     = ["10.19.0.0/16"]
-    dns      = []
-    subnets = {
-      sn1 = {
-        cidr      = ["10.19.1.0/24"]
-        endpoints = []
-        rules = []
-        delegations = []
+module "vnet" {
+  source = "github.com/dkooll/terraform-azurerm-vnet?ref=1.0.0"
+  vnets = {
+    vnet1 = {
+      cidr     = ["10.18.0.0/16"]
+      dns      = ["8.8.8.8","7.7.7.7"]
+      location = "westeurope"
+      subnets = {
+        sn1 = {
+          cidr        = ["10.18.1.0/24"]
+          endpoints   = []
+          delegations = []
+          rules       = []
+        }
       }
     }
   }
 }
 ```
 
+### Usage: `single vnet multiple subnets`
+
+```terraform
+module "vnet" {
+  source = "github.com/dkooll/terraform-azurerm-vnet?ref=1.0.0"
+  vnets = {
+    vnet1 = {
+      cidr     = ["10.18.0.0/16"]
+      dns      = ["8.8.8.8"]
+      location = "westeurope"
+      subnets = {
+        sn1 = {
+          cidr        = ["10.18.1.0/24"]
+          endpoints   = []
+          delegations = []
+          rules       = []
+        }
+        sn2 = {
+          cidr        = ["10.18.2.0/24"]
+          endpoints   = []
+          delegations = []
+          rules       = []
+        }
+      }
+    }
+  }
+}
+```
+
+### Usage: `multiple vnets single subnet with endpoints`
+
+```terraform
+module "vnet" {
+  source = "github.com/dkooll/terraform-azurerm-vnet?ref=1.0.0"
+  vnets = {
+    vnet1 = {
+      cidr     = ["10.18.0.0/16"]
+      dns      = ["8.8.8.8"]
+      location = "westeurope"
+      subnets = {
+        sn1 = {
+          cidr        = ["10.18.1.0/24"]
+          endpoints   = ["Microsoft.Storage", "Microsoft.Sql"]
+          delegations = []
+          rules       = []
+        }
+      }
+    }
+
+    vnet2 = {
+      cidr     = ["10.19.0.0/16"]
+      dns      = []
+      location = "eastus2"
+      subnets = {
+        sn1 = {
+          cidr        = ["10.19.1.0/24"]
+          endpoints   = ["Microsoft.Web"]
+          delegations = []
+          rules       = []
+        }
+      }
+    }
+  }
+}
+```
 ## Outputs
 
 ## References
