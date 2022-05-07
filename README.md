@@ -161,6 +161,7 @@ module "vnet" {
 ```
 
 ```terraform
+#variables.tf
 variable "vnets" {}
 ```
 
