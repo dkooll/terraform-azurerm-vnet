@@ -1,7 +1,7 @@
 vnets = {
   vnet1 = {
-    cidr = ["10.18.0.0/16"]
-    dns  = ["8.8.8.8"]
+    cidr     = ["10.18.0.0/16"]
+    dns      = ["8.8.8.8"]
     location = "westeurope"
     subnets = {
       sn1 = {
@@ -14,8 +14,8 @@ vnets = {
   }
 
   vnet2 = {
-    cidr = ["10.19.0.0/16"]
-    dns  = []
+    cidr     = ["10.19.0.0/16"]
+    dns      = []
     location = "eastus2"
     subnets = {
       sn1 = {
