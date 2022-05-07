@@ -1,4 +1,4 @@
-`[Microsoft.Network/virtualNetworks]`
+## `[Microsoft.Network/virtualNetworks]`
 
 Terraform module which creates VNET resources on Azure.
 
