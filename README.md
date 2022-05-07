@@ -14,7 +14,6 @@ Terraform module which creates VNET resources on Azure.
     - [Usage: `single vnet single subnet with delegations`](#inputs-usage-single-vnet-single-subnet-with-delegations)
     - [Usage: `multiple vnets single subnet with multiple nsg rules`](#inputs-usage-multiple-vnets-single-subnet-with-multiple-nsg-rules)
   - [Outputs](#outputs)
-  - [References](#references)
 
 ## Resources
 
@@ -234,5 +233,3 @@ vnets = {
 | :-- | :-- |
 | `subnets` | contains all subnets |
 | `vnets` | contains all vnets |
-
-## References
