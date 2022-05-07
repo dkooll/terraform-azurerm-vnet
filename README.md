@@ -1,7 +1,7 @@
 ![example workflow](https://github.com/dkooll/terraform-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
-[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/dkooll/terraform-azurerm-vnet/issues)
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/dkooll/terraform-azurerm-vnet/releases)
+[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/dkooll/StrapDown.js/blob/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/dkooll/StrapDown.js/issues/)
+[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/dkooll/StrapDown.js/releases/)
 
 ## Virtual Network `[Microsoft.Network/virtualNetworks]`
 
