@@ -11,6 +11,8 @@ Terraform module which creates VNET resources on Azure.
     - [Usage: `single vnet multiple dns`](#inputs-usage-single-vnet-multiple-dns)
     - [Usage: `single vnet multiple subnets`](#inputs-usage-single-vnet-multiple-subnets)
     - [Usage: `multiple vnets single subnet with endpoints`](#inputs-usage-multiple-vnets-single-subnet-with-endpoints)
+    - [Usage: `single vnet single subnet with delegations`](#inputs-usage-single-vnet-single-subnet-with-delegations)
+    - [Usage: `multiple vnets single subnet with nsg rules`](#inputs-usage-multiple-vnets-single-subnet-with-nsg-rules)
   - [Outputs](#outputs)
   - [References](#references)
 
@@ -119,6 +121,36 @@ module "vnet" {
   }
 }
 ```
+
+### Usage: `single vnet single subnet with delegations`
+
+```terraform
+module "vnet" {
+  source = "github.com/dkooll/terraform-azurerm-vnet?ref=1.0.0"
+  vnets = {
+    vnet1 = {
+      cidr     = ["10.18.0.0/16"]
+      dns      = ["8.8.8.8"]
+      location = "westeurope"
+      subnets = {
+        sn1 = {
+          cidr        = ["10.18.1.0/24"]
+          endpoints   = []
+          delegations = [
+            "Microsoft.ContainerInstance/containerGroups",
+            "Microsoft.Kusto/clusters",
+            "Microsoft.Sql/managedInstances"
+          ]
+          rules       = []
+        }
+      }
+    }
+  }
+}
+```
+
+### Usage: `single vnet single subnet with nsg rules`
+
 ## Outputs
 
 ## References
