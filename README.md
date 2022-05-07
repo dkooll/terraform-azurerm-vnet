@@ -152,64 +152,70 @@ module "vnet" {
 ### Usage: `multiple vnets single subnet with multiple nsg rules`
 
 ```terraform
+#main.tf
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet?ref=1.0.0"
-  vnets = {
-    vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      dns      = ["8.8.8.8"]
-      location = "westeurope"
-      subnets = {
-        sn1 = {
-          cidr        = ["10.18.1.0/24"]
-          endpoints   = []
-          delegations = []
-          rules = [{
-            name                       = "myhttps"
-            priority                   = 100
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "tcp"
-            source_port_range          = "*"
-            destination_port_range     = "443"
-            source_address_prefixes    = ["10.151.0.0/24", "10.151.1.0/24"]
-            destination_address_prefix = "*"
-            }, {
-            name                       = "mysql"
-            priority                   = 200
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "3306"
-            source_address_prefix      = "10.0.0.0/24"
-            destination_address_prefix = "*"
-          }]
-        }
+  vnets = var.vnets
+}
+```
+
+```terraform
+#vnets.auto.tfvars
+vnets = {
+  vnet1 = {
+    cidr     = ["10.18.0.0/16"]
+    dns      = ["8.8.8.8"]
+    location = "westeurope"
+    subnets = {
+      sn1 = {
+        cidr        = ["10.18.1.0/24"]
+        endpoints   = []
+        delegations = []
+        rules = [{
+          name                       = "myhttps"
+          priority                   = 100
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "tcp"
+          source_port_range          = "*"
+          destination_port_range     = "443"
+          source_address_prefixes    = ["10.151.0.0/24", "10.151.1.0/24"]
+          destination_address_prefix = "*"
+          }, {
+          name                       = "mysql"
+          priority                   = 200
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "3306"
+          source_address_prefix      = "10.0.0.0/24"
+          destination_address_prefix = "*"
+        }]
       }
     }
+  }
 
-    vnet2 = {
-      cidr     = ["10.19.0.0/16"]
-      dns      = []
-      location = "eastus2"
-      subnets = {
-        sn1 = {
-          cidr        = ["10.19.1.0/24"]
-          endpoints   = []
-          delegations = []
-          rules = [{
-            name                       = "myssh"
-            priority                   = 100
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "tcp"
-            source_port_range          = "*"
-            destination_port_range     = "22"
-            source_address_prefix      = "10.151.0.0/24"
-            destination_address_prefix = "*"
-          }]
-        }
+  vnet2 = {
+    cidr     = ["10.19.0.0/16"]
+    dns      = []
+    location = "eastus2"
+    subnets = {
+      sn1 = {
+        cidr        = ["10.19.1.0/24"]
+        endpoints   = []
+        delegations = []
+        rules = [{
+          name                       = "myssh"
+          priority                   = 100
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "tcp"
+          source_port_range          = "*"
+          destination_port_range     = "22"
+          source_address_prefix      = "10.151.0.0/24"
+          destination_address_prefix = "*"
+        }]
       }
     }
   }
