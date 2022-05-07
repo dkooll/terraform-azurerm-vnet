@@ -14,6 +14,11 @@ jobs:
     name: validate
     runs-on: ubuntu-latest
     environment : development
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
     steps:
       - uses: actions/checkout@v2
@@ -40,31 +45,14 @@ jobs:
         with:
           soft_fail: false
 
-  terratest:
-    name: deploy
-    needs: validate
-    runs-on: ubuntu-latest
-    environment : development
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
-    steps:
-      - uses: actions/checkout@v2
-
       - uses: actions/setup-go@v1
         with:
-          go-version: 1.13
-
-      - name: setup terraform
-        uses: hashicorp/setup-terraform@v1
+          go-version: 1.18.1
 
       - name: Download Go Modules
+        run : go mod download
         working-directory: tests
-        run: go mod download
 
       - name: Run Go Tests
-        working-directory: tests
         run: go test -timeout 99999s
+        working-directory: tests
