@@ -1,4 +1,4 @@
-name: release
+name: Tag and create a GitHub release
 
 on:
   pull_request:
@@ -31,147 +31,71 @@ on:
         default: bugfix/
         required: false
         type: string
-      updateMajorTag:
-        description: Update the major version tag to the latest release.
-        default: true
-        required: false
-        type: boolean
-      updateMinorTag:
-        description: Update the major version tag to the latest release.
-        default: true
-        required: false
-        type: boolean
     outputs:
       releaseVersion:
-        description: The released version number
+        description: "The released version number"
         value: ${{ jobs.release.outputs.releaseVersion }}
 
 jobs:
   release:
-    if: ${{ github.event.pull_request.merged }}
-    name: Release
+    name: job_module_create_release
     runs-on: ubuntu-latest
     outputs:
-      releaseVersion: ${{ steps.next.outputs.result }}
+      releaseVersion: ${{ steps.semver.outputs.next }}
     steps:
-      - name: Get latest tag
-        id: latest
-        uses: actions/github-script@v6
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          result-encoding: string
-          script: |
-            const { data } = await github.rest.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            return data.tag_name;
+          fetch-depth: 0
 
-      - name: Parse next release version
-        id: next
-        uses: actions/github-script@v6
+      - name: Get version
+        id: semver
+        shell: bash
+        run: |
+          LATEST=$(git describe --abbrev=0 --tags 2>/dev/null || echo "0.0.0")
+          # Split up according to semver
+          SEMVER=(${LATEST//./ })
+          MAJOR=${SEMVER[0]}
+          MINOR=${SEMVER[1]}
+          PATCH=${SEMVER[2]}
+          # Semver calculation (default=patch)
+          case "${{ inputs.sourceBranchName }}" in
+          ${{ inputs.majorBranchPrefix}}*)
+            MAJOR=$((MAJOR+1))
+            MINOR=0
+            PATCH=0
+            ;;
+          ${{ inputs.minorBranchPrefix}}*)
+            MINOR=$((MINOR+1))
+            PATCH=0
+            ;;
+          ${{ inputs.patchBranchPrefix}}*)
+            PATCH=$((PATCH+1))
+            ;;
+          *)
+            PATCH=$((PATCH+1))
+            ;;
+          esac
+          echo "::set-output name=next::${MAJOR}.${MINOR}.${PATCH}"
+
+      - name: Tag next version
+        uses: actions/github-script@v5
         with:
-          result-encoding: string
-          script: |
-            const latest = '${{steps.latest.outputs.result}}';
-            var [version, major, minor, patch] = latest.match(/(\d+).(\d+)\.(\d+)/);
-
-            if ("${{inputs.sourceBranchName}}".startsWith("${{inputs.majorBranchPrefix}}")) {
-              major++;
-              minor=0;
-              patch=0;
-            } else if ("${{inputs.sourceBranchName}}".startsWith("${{inputs.minorBranchPrefix}}")) {
-              minor++;
-              patch=0;
-            } else if ("${{inputs.sourceBranchName}}".startsWith("${{inputs.patchBranchPrefix}}")) {
-              patch++;
-            }
-            console.log("::set-output name=major::" + major);
-            console.log("::set-output name=minor::" + minor);
-            console.log("::set-output name=patch::" + patch);
-            return major + "." + minor + "." + patch;
-
-      - name: Create release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            /* Release the actual patch/minor/major
-            * https://octokit.github.io/rest.js/v18#repos-create-release
-            */
-            const releaseNotes = `# Release notes
+          script: |-
+            github.log.info('Creating release: ${{ steps.semver.outputs.next }}');
+            const content = `# Release notes
 
             ${{ inputs.releaseNotesIntro }}
             `;
+
+            /* https://octokit.github.io/rest.js/v18#repos-create-release */
             github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag_name: '${{ steps.next.outputs.result }}',
+              tag_name: '${{ steps.semver.outputs.next }}',
               target_commitish: '${{ github.sha }}',
-              body: releaseNotes,
+              body: content,
               generate_release_notes: true
-            }).then(res => {
-              console.log('Released version ${{ steps.next.outputs.result }}');
-            }).catch(err => {
-              console.log('Release failed.', err);
-              // Release already exists...
-              // Continue to bump tags if pipeline failed before?
             });
 
-      - name: Bump minor tag
-        if: ${{ inputs.updateMinorTag }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            /* Recreate the minor tag on the released version
-            * https://octokit.github.io/rest.js/v18#git-get-ref
-            * https://octokit.github.io/rest.js/v18#git-update-ref
-            * https://octokit.github.io/rest.js/v18#git-create-ref
-            */
-            github.rest.git.getRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'tags/${{ steps.next.outputs.major }}.${{ steps.next.outputs.minor }}'
-            }).then(res => {
-              github.rest.git.updateRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'tags/${{ steps.next.outputs.major }}.${{ steps.next.outputs.minor }}',
-                sha: '${{ github.sha }}'
-              });
-            }).catch(err => {
-              github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'refs/tags/${{ steps.next.outputs.major }}.${{ steps.next.outputs.minor }}',
-                sha: '${{ github.sha }}'
-              });
-            });
-
-      - name: Bump major tag
-        if: ${{ inputs.updateMajorTag }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            /* Recreate the major tag on the released version
-            * https://octokit.github.io/rest.js/v18#git-get-ref
-            * https://octokit.github.io/rest.js/v18#git-update-ref
-            * https://octokit.github.io/rest.js/v18#git-create-ref
-            */
-            github.rest.git.getRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'tags/${{ steps.next.outputs.major }}'
-            }).then(res => {
-              github.rest.git.updateRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'tags/${{ steps.next.outputs.major }}',
-                sha: '${{ github.sha }}'
-              });
-            }).catch(err => {
-              github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'refs/tags/${{ steps.next.outputs.major }}',
-                sha: '${{ github.sha }}'
-              });
-            });
+            github.log.info('Done.');
