@@ -40,10 +40,10 @@ on:
       default: true
       required: false
       type: boolean
-  outputs:
-    releaseVersion:
-      description: The released version number
-      value: ${{ jobs.release.outputs.releaseVersion }}
+  # outputs:
+  #   releaseVersion:
+  #     description: The released version number
+  #     value: ${{ jobs.release.outputs.releaseVersion }}
 
 jobs:
   release:
