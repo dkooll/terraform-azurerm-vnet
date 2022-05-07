@@ -231,7 +231,7 @@ vnets = {
 ## Outputs
 
 | Name | Description |
-| :-- | :-- | :-- | :-- |
+| :-- | :-- |
 | `subnets` | contains all subnets |
 | `vnets` | contains all vnets |
 
