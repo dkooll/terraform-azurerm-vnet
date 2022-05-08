@@ -25,7 +25,7 @@ resource "azurerm_virtual_network" "vnets" {
 
   ddos_protection_plan {
     id     = azurerm_network_ddos_protection_plan.ddos_plan[each.key].id
-    enable = each.value.ddos_plan
+    enable = each.value.protected
   }
 }
 
