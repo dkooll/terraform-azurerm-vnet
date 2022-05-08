@@ -22,6 +22,11 @@ resource "azurerm_virtual_network" "vnets" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = each.value.location
   address_space       = each.value.cidr
+
+  ddos_protection_plan {
+    id      = azurerm_network_ddos_protection_plan.ddos_plan.id
+    enabled = each.value.ddos_plan
+  }
 }
 
 #----------------------------------------------------------------------------------------
@@ -125,4 +130,18 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
 
   subnet_id                 = azurerm_subnet.subnets[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
+}
+
+#----------------------------------------------------------------------------------------
+# Ddos protection plan
+#----------------------------------------------------------------------------------------
+
+resource "azurerm_network_ddos_protection_plan" "ddos_plan" {
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
+
+  name                = "plan-ddos-${var.env}-001"
+  location            = each.value.location
+  resource_group_name = azurerm_resource_group.rg.name
 }
