@@ -139,7 +139,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
 resource "azurerm_network_ddos_protection_plan" "ddos_plan" {
   for_each = var.vnets
 
-  name                = "plan-ddos-${var.env}-001"
+  name                = "plan-ddos-${each.value.location}-001"
   location            = each.value.location
   resource_group_name = azurerm_resource_group.rg.name
 }
