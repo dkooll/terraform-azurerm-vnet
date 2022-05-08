@@ -137,9 +137,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_as" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_network_ddos_protection_plan" "ddos_plan" {
-  for_each = {
-    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
-  }
+  for_each = var.vnets
 
   name                = "plan-ddos-${var.env}-001"
   location            = each.value.location
