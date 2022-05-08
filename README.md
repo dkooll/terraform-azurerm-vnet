@@ -28,6 +28,7 @@ Terraform module which creates VNET resources on Azure.
 | `azurerm_subnet` | resource |
 | `azurerm_network_security_group` | resource |
 | `azurerm_subnet_network_security_group_association` | resource |
+| `azurerm_network_ddos_protection_plan` | resource |
 
 ## Inputs
 
@@ -45,6 +46,7 @@ module "vnet" {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8","7.7.7.7"]
       location = "westeurope"
+      protected = false
       subnets = {
         sn1 = {
           cidr        = ["10.18.1.0/24"]
@@ -68,6 +70,7 @@ module "vnet" {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8"]
       location = "westeurope"
+      protected = false
       subnets = {
         sn1 = {
           cidr        = ["10.18.1.0/24"]
@@ -97,6 +100,7 @@ module "vnet" {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8"]
       location = "westeurope"
+      protected = false
       subnets = {
         sn1 = {
           cidr        = ["10.18.1.0/24"]
@@ -111,6 +115,7 @@ module "vnet" {
       cidr     = ["10.19.0.0/16"]
       dns      = []
       location = "eastus2"
+      protected = false
       subnets = {
         sn1 = {
           cidr        = ["10.19.1.0/24"]
@@ -134,6 +139,7 @@ module "vnet" {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8"]
       location = "westeurope"
+      protected = false
       subnets = {
         sn1 = {
           cidr        = ["10.18.1.0/24"]
@@ -174,6 +180,7 @@ vnets = {
     cidr     = ["10.18.0.0/16"]
     dns      = ["8.8.8.8"]
     location = "westeurope"
+    protected = false
     subnets = {
       sn1 = {
         cidr        = ["10.18.1.0/24"]
@@ -211,6 +218,7 @@ vnets = {
     cidr     = ["10.19.0.0/16"]
     dns      = []
     location = "eastus2"
+    protected = false
     subnets = {
       sn1 = {
         cidr        = ["10.19.1.0/24"]
