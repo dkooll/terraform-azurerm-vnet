@@ -2,7 +2,7 @@ module vnet
 
 go 1.18
 
-require github.com/gruntwork-io/terratest v0.40.7
+require github.com/gruntwork-io/terratest v0.40.8
 
 require (
 	cloud.google.com/go v0.83.0 // indirect
