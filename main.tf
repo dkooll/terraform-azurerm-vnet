@@ -24,7 +24,7 @@ resource "azurerm_virtual_network" "vnets" {
   address_space       = each.value.cidr
 
   ddos_protection_plan {
-    id      = azurerm_network_ddos_protection_plan.ddos_plan.id
+    id      = azurerm_network_ddos_protection_plan.ddos_plan[each.key].id
     enabled = each.value.ddos_plan
   }
 }
