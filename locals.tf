@@ -9,9 +9,9 @@ locals {
         subnet_name          = "sn-${var.env}-${network_key}-001"
         nsg_name             = "nsg-${var.env}-${network_key}-001"
         location             = network.location
-        endpoints            = subnet.endpoints
-        rules                = subnet.rules
-        delegations          = subnet.delegations
+        endpoints            = try(subnet.endpoints, {})
+        rules                = try(subnet.rules, {})
+        delegations          = try(subnet.delegations, {})
         virtual_network_name = azurerm_virtual_network.vnets[network_key].name
       }
     ]
