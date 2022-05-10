@@ -42,10 +42,7 @@ vnets = {
     location = "eastus2"
     subnets = {
       sn1 = {
-        cidr        = ["10.19.1.0/24"]
-        endpoints   = []
-        rules       = []
-        delegations = []
+        cidr = ["10.19.1.0/24"]
       }
     }
   }
