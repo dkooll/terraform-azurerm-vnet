@@ -86,7 +86,13 @@ module "vnet" {
       dns      = ["8.8.8.8"]
       location = "westeurope"
       subnets = {
-        sn1 = {cidr = ["10.18.1.0/24"],endpoints = ["Microsoft.Storage", "Microsoft.Sql"]}
+        sn1 = {
+          cidr = ["10.18.1.0/24"]
+          endpoints = [
+            "Microsoft.Storage",
+            "Microsoft.Sql"
+          ]
+        }
       }
     }
 
@@ -95,7 +101,12 @@ module "vnet" {
       dns      = []
       location = "eastus2"
       subnets = {
-        sn1 = {cidr = ["10.19.1.0/24"],endpoints = ["Microsoft.Web"]}
+        sn1 = {
+          cidr = ["10.19.1.0/24"]
+          endpoints = [
+            "Microsoft.Web"
+          ]
+        }
       }
     }
   }
