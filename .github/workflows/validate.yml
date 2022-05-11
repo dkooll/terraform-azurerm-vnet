@@ -60,6 +60,8 @@ jobs:
 
       - name: setup terraform
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
 
       - name: Download Go Modules
         working-directory: tests

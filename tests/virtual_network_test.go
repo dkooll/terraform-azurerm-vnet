@@ -7,14 +7,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestApplyNoError(t *testing.T) {
+func TestTerraformAwsHelloWorldExample(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
 		TerraformDir: "../",
 		Parallelism:  2,
-		//NoColor:      true,
+		NoColor:      true,
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
