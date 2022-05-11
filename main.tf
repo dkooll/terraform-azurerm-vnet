@@ -32,7 +32,7 @@ resource "azurerm_virtual_network_dns_servers" "dns" {
   for_each = var.vnets
 
   virtual_network_id = azurerm_virtual_network.vnets[each.key].id
-  dns_servers        = lookup(each.value, "dns", null)
+  dns_servers        = try(each.value.dns, [])
 }
 
 #----------------------------------------------------------------------------------------

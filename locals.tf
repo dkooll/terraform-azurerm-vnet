@@ -6,8 +6,8 @@ locals {
         network_key          = network_key
         subnet_key           = subnet_key
         address_prefixes     = subnet.cidr
-        subnet_name          = "sn-${var.env}-${network_key}-001"
-        nsg_name             = "nsg-${var.env}-${network_key}-001"
+        subnet_name          = "sn-${var.env}-${network_key}-${subnet_key}"
+        nsg_name             = "nsg-${var.env}-${network_key}-${subnet_key}"
         location             = network.location
         endpoints            = try(subnet.endpoints, [])
         rules                = try(subnet.rules, {})
