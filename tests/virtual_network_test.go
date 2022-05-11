@@ -14,7 +14,7 @@ func TestTerraformAwsHelloWorldExample(t *testing.T) {
 
 		TerraformDir: "../",
 		Parallelism:  2,
-		NoColor:      true,
+		NoColor:      false,
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
