@@ -15,7 +15,7 @@ func TestApplyNoError(t *testing.T) {
 		TerraformDir: "../",
 		Parallelism:  2,
 		NoColor:      true,
-		VarFiles:     []string{"examples"},
+		VarFiles:     []string{"examples/vnets.tfvars"},
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
