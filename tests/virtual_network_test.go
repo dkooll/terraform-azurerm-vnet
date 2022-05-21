@@ -12,10 +12,10 @@ func TestApplyNoError(t *testing.T) {
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 
-		TerraformDir: "../",
+		TerraformDir: "../examples",
 		Parallelism:  2,
 		NoColor:      true,
-		VarFiles:     []string{"examples/vnets.tfvars"},
+		//VarFiles:     []string{"examples/vnets.tfvars"},
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
