@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "rg" {
     for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
   }
 
-  name     = each.value.rg
+  name     = each.value.resource_group_name
   location = each.value.location
 }
 
