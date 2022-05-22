@@ -7,8 +7,12 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-network-${var.env}-001"
-  location = "westeurope"
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
+
+  name     = each.value.rg
+  location = each.value.location
 }
 
 #----------------------------------------------------------------------------------------
@@ -16,12 +20,14 @@ resource "azurerm_resource_group" "rg" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "vnets" {
-  for_each = var.vnets
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
 
   name                = "vnet-${var.env}-${each.value.location}-001"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = each.value.virtual_network_name
   location            = each.value.location
-  address_space       = each.value.cidr
+  address_space       = each.value.virtual_network_cidr
 }
 
 #----------------------------------------------------------------------------------------
@@ -29,10 +35,12 @@ resource "azurerm_virtual_network" "vnets" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
-  for_each = var.vnets
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
 
-  virtual_network_id = azurerm_virtual_network.vnets[each.key].id
-  dns_servers        = try(each.value.dns, [])
+  virtual_network_id = each.value.virtual_network_id
+  dns_servers        = each.value.dns
 }
 
 #----------------------------------------------------------------------------------------
