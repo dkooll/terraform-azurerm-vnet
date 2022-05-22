@@ -15,7 +15,7 @@ locals {
         virtual_network_name = azurerm_virtual_network.vnets[network_key].name
         virtual_network_id   = azurerm_virtual_network.vnets[network_key].id
         virtual_network_cidr = network.cidr
-        rg_name              = azurerm_resource_group.rg[network.rg].name
+        rg_name              = azurerm_resource_group.rg[rg].name
         rg                   = network.rg
         dns_servers          = try(network.dns, [])
       }
