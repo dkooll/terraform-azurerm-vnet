@@ -15,6 +15,8 @@ locals {
         rules                = try(subnet.rules, {})
         delegations          = try(subnet.delegations, [])
         virtual_network_name = azurerm_virtual_network.vnets[network_key].name
+        virtual_network_id   = azurerm_virtual_network.vnets[network_key].id
+        dns                  = try(each.value.dns, [])
       }
     ]
   ])
