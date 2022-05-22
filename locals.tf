@@ -1,7 +1,7 @@
 locals {
   network_subnets = flatten([
     for network_key, network in var.vnets : [
-      for subnet_key, subnet in network.subnets : {
+      for subnet_key, subnet in try(network.subnets, []) : {
 
         network_key          = network_key
         subnet_key           = subnet_key
