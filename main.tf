@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "rg" {
     for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
   }
 
-  name     = each.value.resource_group_name
+  name     = each.value.rg
   location = each.value.location
 }
 
@@ -20,10 +20,12 @@ resource "azurerm_resource_group" "rg" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network" "vnets" {
-  for_each = var.vnets
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
 
   name                = "vnet-${var.env}-${each.value.location}-001"
-  resource_group_name = azurerm_resource_group.rg[each.key].name
+  resource_group_name = each.value.rg
   location            = each.value.location
   address_space       = each.value.cidr
 }
@@ -49,7 +51,7 @@ resource "azurerm_subnet" "subnets" {
   }
 
   name                 = each.value.subnet_name
-  resource_group_name  = azurerm_resource_group.rg[each.key].name
+  resource_group_name  = each.value.rg
   virtual_network_name = each.value.virtual_network_name
   address_prefixes     = each.value.address_prefixes
   service_endpoints    = each.value.endpoints
@@ -78,7 +80,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   name                = each.value.nsg_name
-  resource_group_name = azurerm_resource_group.rg[each.key].name
+  resource_group_name = each.value.rg
   location            = each.value.location
 
   dynamic "security_rule" {
