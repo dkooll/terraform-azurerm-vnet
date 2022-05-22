@@ -35,10 +35,12 @@ resource "azurerm_virtual_network" "vnets" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_virtual_network_dns_servers" "dns" {
-  for_each = var.vnets
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
 
-  virtual_network_id = azurerm_virtual_network.vnets[each.key].id
-  dns_servers        = try(each.value.dns, [])
+  virtual_network_id = each.value.virtual_network_id
+  dns_servers        = each.value.dns
 }
 
 #----------------------------------------------------------------------------------------
