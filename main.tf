@@ -7,8 +7,10 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-network-${var.env}-001"
-  location = "westeurope"
+  for_each = var.vnets
+
+  name     = each.value.rg
+  location = each.value.location
 }
 
 #----------------------------------------------------------------------------------------

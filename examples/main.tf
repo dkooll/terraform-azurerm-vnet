@@ -4,6 +4,7 @@ module "vnet" {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8"]
+      rg       = "rg-network-weu-001"
       location = "westeurope"
       subnets = {
         sn1 = {
@@ -19,6 +20,7 @@ module "vnet" {
     vnet2 = {
       cidr     = ["10.19.0.0/16"]
       location = "eastus2"
+      rg       = "rg-network-weu-001"
       subnets = {
         sn1 = { cidr = ["10.19.1.0/24"] }
         sn2 = { cidr = ["10.19.2.0/24"] }
