@@ -7,7 +7,9 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  for_each = var.vnets
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
 
   name     = each.value.rg
   location = each.value.location

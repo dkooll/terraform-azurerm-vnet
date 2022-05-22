@@ -9,6 +9,7 @@ locals {
         subnet_name          = "sn-${var.env}-${network_key}-${subnet_key}"
         nsg_name             = "nsg-${var.env}-${network_key}-${subnet_key}"
         location             = network.location
+        resource_group_name  = network.rg
         endpoints            = try(subnet.endpoints, [])
         rules                = try(subnet.rules, {})
         delegations          = try(subnet.delegations, [])
