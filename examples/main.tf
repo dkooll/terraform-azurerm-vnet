@@ -1,6 +1,7 @@
 module "vnet" {
   source = "../"
   vnets = {
+    rg = "rg-network-dev-001"
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
       dns      = ["8.8.8.8"]
