@@ -1,5 +1,7 @@
 ![example workflow](https://github.com/dkooll/terraform-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Open: Issues](https://img.shields.io/github/issues-raw/dkooll/terraform-azurerm-vnet?color=red)
+![Closed: Issues](https://img.shields.io/github/issues-closed-raw/dkooll/terraform-azurerm-vnet?color=%20)
 
 ## Virtual Network `[Microsoft.Network/virtualNetworks]`
 
