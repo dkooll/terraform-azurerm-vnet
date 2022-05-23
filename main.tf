@@ -7,7 +7,7 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  name     = var.network.vnets.rg
+  name     = var.vnets.rg
   location = "westeurope"
 }
 
