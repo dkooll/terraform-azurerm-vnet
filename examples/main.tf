@@ -1,5 +1,6 @@
 module "vnet" {
-  source = "../"
+  source        = "../"
+  resourcegroup = "rg-network-dev-001"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]

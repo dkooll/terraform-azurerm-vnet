@@ -7,7 +7,7 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-network-${var.env}-001"
+  name     = var.resourcegroup
   location = "westeurope"
 }
 
