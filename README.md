@@ -3,43 +3,13 @@
 ![Open: Issues](https://img.shields.io/github/issues-raw/dkooll/terraform-azurerm-vnet?color=yellow)
 ![Closed: Issues](https://img.shields.io/github/issues-closed-raw/dkooll/terraform-azurerm-vnet?color=%20)
 
-## Virtual Network `[Microsoft.Network/virtualNetworks]`
+# Virtual Network
 
 Terraform module which creates VNET resources on Azure.
 
-## Table of Contents
-
-- [Virtual Network](#virtual-network)
-  - [**Table of Contents**](#table-of-contents)
-  - [Resources](#resources)
-  - [Inputs](#inputs)
-    - [Usage: `single vnet multiple dns`](#inputs-usage-single-vnet-multiple-dns)
-    - [Usage: `single vnet multiple subnets`](#inputs-usage-single-vnet-multiple-subnets)
-    - [Usage: `multiple vnets single subnet with endpoints`](#inputs-usage-multiple-vnets-single-subnet-with-endpoints)
-    - [Usage: `single vnet single subnet with delegations`](#inputs-usage-single-vnet-single-subnet-with-delegations)
-    - [Usage: `multiple vnets single subnet with multiple nsg rules`](#inputs-usage-multiple-vnets-single-subnet-with-multiple-nsg-rules)
-  - [Outputs](#outputs)
-
-## Resources
-
-| Name | Type |
-| :-- | :-- |
-| `azurerm_resource_group` | resource |
-| `azurerm_virtual_network` | resource |
-| `azurerm_virtual_network_dns_servers` | resource |
-| `azurerm_subnet` | resource |
-| `azurerm_network_security_group` | resource |
-| `azurerm_subnet_network_security_group_association` | resource |
-
-## Inputs
-
-| Name | Description | Type | Required |
-| :-- | :-- | :-- | :-- |
-| `vnets` | describes vnet related configuration | object | yes |
-
 ### Usage: `single vnet multiple dns`
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
   version = "1.0.0"
@@ -58,7 +28,7 @@ module "vnet" {
 
 ### Usage: `single vnet multiple subnets`
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
   version = "1.0.0"
@@ -77,7 +47,7 @@ module "vnet" {
 
 ### Usage: `multiple vnets single subnet with endpoints`
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
   version = "1.0.0"
@@ -114,7 +84,7 @@ module "vnet" {
 
 ### Usage: `single vnet single subnet with delegations`
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
   version = "1.0.0"
@@ -139,7 +109,7 @@ module "vnet" {
 
 ### Usage: `multiple vnets single subnet with multiple nsg rules`
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
   version = "1.0.0"
@@ -173,6 +143,23 @@ module "vnet" {
   }
 }
 ```
+
+## Resources
+
+| Name | Type |
+| :-- | :-- |
+| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+
+## Inputs
+
+| Name | Description | Type | Required |
+| :-- | :-- | :-- | :-- |
+| `vnets` | describes vnet related configuration | object | yes |
 
 ## Outputs
 
