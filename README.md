@@ -9,7 +9,7 @@ The code base is validated using [terratest](https://terratest.gruntwork.io/). T
 
 The [example](examples) directory contains any prerequirements and integrations to test the code and is set as the working directory.
 
-The below examples shows the usage and available features when consuming.
+The below examples shows the usage and available features when consuming the module.
 
 ## Usage: single vnet multiple dns
 
