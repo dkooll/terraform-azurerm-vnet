@@ -4,7 +4,24 @@
 
 Terraform module which creates VNET resources on Azure.
 
-## Usage: Single vnet multiple dns
+## Resources
+
+| Name | Type |
+| :-- | :-- |
+| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+
+## Inputs
+
+| Name | Description | Type | Required |
+| :-- | :-- | :-- | :-- |
+| `vnets` | describes vnet related configuration | object | yes |
+
+## Usage: single vnet multiple dns
 
 ```hcl
 module "vnet" {
@@ -23,7 +40,7 @@ module "vnet" {
 }
 ```
 
-## Usage: Single vnet multiple subnets
+## Usage: single vnet multiple subnets
 
 ```hcl
 module "vnet" {
@@ -42,7 +59,7 @@ module "vnet" {
 }
 ```
 
-## Usage: Multiple vnets single subnet with endpoints
+## Usage: multiple vnets single subnet with endpoints
 
 ```hcl
 module "vnet" {
@@ -79,7 +96,7 @@ module "vnet" {
 }
 ```
 
-## Usage: Single vnet single subnet with delegations
+## Usage: single vnet single subnet with delegations
 
 ```hcl
 module "vnet" {
@@ -104,7 +121,7 @@ module "vnet" {
 }
 ```
 
-## Usage: Multiple vnets single subnet with multiple nsg rules
+## Usage: multiple vnets single subnet with multiple nsg rules
 
 ```hcl
 module "vnet" {
@@ -140,23 +157,6 @@ module "vnet" {
   }
 }
 ```
-
-## Resources
-
-| Name | Type |
-| :-- | :-- |
-| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-
-## Inputs
-
-| Name | Description | Type | Required |
-| :-- | :-- | :-- | :-- |
-| `vnets` | describes vnet related configuration | object | yes |
 
 ## Outputs
 
