@@ -1,48 +1,22 @@
 ![example workflow](https://github.com/dkooll/terraform-azurerm-vnet/actions/workflows/validate.yml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Open: Issues](https://img.shields.io/github/issues-raw/dkooll/terraform-azurerm-vnet?color=yellow)
-![Closed: Issues](https://img.shields.io/github/issues-closed-raw/dkooll/terraform-azurerm-vnet?color=%20)
 
-## Virtual Network `[Microsoft.Network/virtualNetworks]`
+# Virtual Network
 
-Terraform module which creates VNET resources on Azure.
+Terraform module which creates VNET resources on Azure. It references a single object called vnet, which contains nested keys. To be able to reference these nested key values, a list of maps is created using a local variable.
+Using this approach we are able to build a logical data structure. The basic principle is that the consumer needs to apply as little logic as possible.
 
-## Table of Contents
+The code base is validated using [terratest](https://terratest.gruntwork.io/). These tests can be found [here](tests).
 
-- [Virtual Network](#virtual-network)
-  - [**Table of Contents**](#table-of-contents)
-  - [Resources](#resources)
-  - [Inputs](#inputs)
-    - [Usage: `single vnet multiple dns`](#inputs-usage-single-vnet-multiple-dns)
-    - [Usage: `single vnet multiple subnets`](#inputs-usage-single-vnet-multiple-subnets)
-    - [Usage: `multiple vnets single subnet with endpoints`](#inputs-usage-multiple-vnets-single-subnet-with-endpoints)
-    - [Usage: `single vnet single subnet with delegations`](#inputs-usage-single-vnet-single-subnet-with-delegations)
-    - [Usage: `multiple vnets single subnet with multiple nsg rules`](#inputs-usage-multiple-vnets-single-subnet-with-multiple-nsg-rules)
-  - [Outputs](#outputs)
+The [example](examples) directory contains any prerequirements and integrations to test the code and is set as the working directory.
 
-## Resources
+The below examples shows the usage and available features when consuming the module.
 
-| Name | Type |
-| :-- | :-- |
-| `azurerm_resource_group` | resource |
-| `azurerm_virtual_network` | resource |
-| `azurerm_virtual_network_dns_servers` | resource |
-| `azurerm_subnet` | resource |
-| `azurerm_network_security_group` | resource |
-| `azurerm_subnet_network_security_group_association` | resource |
+## Usage: single vnet multiple dns
 
-## Inputs
-
-| Name | Description | Type | Required |
-| :-- | :-- | :-- | :-- |
-| `vnets` | describes vnet related configuration | object | yes |
-
-### Usage: `single vnet multiple dns`
-
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -56,12 +30,12 @@ module "vnet" {
 }
 ```
 
-### Usage: `single vnet multiple subnets`
+## Usage: single vnet multiple subnets
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -75,12 +49,12 @@ module "vnet" {
 }
 ```
 
-### Usage: `multiple vnets single subnet with endpoints`
+## Usage: multiple vnets single subnet with endpoints
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -112,12 +86,12 @@ module "vnet" {
 }
 ```
 
-### Usage: `single vnet single subnet with delegations`
+## Usage: single vnet single subnet with delegations
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -137,12 +111,12 @@ module "vnet" {
 }
 ```
 
-### Usage: `multiple vnets single subnet with multiple nsg rules`
+## Usage: multiple vnets single subnet with multiple nsg rules
 
-```terraform
+```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -174,9 +148,35 @@ module "vnet" {
 }
 ```
 
+## Resources
+
+| Name | Type |
+| :-- | :-- |
+| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
+| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network) | resource |
+| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_dns_servers) | resource |
+| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
+| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
+| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+
+## Inputs
+
+| Name | Description | Type | Required |
+| :-- | :-- | :-- | :-- |
+| `vnets` | describes vnet related configuration | object | yes |
+| `resourcegroup` | name of the resource group | string | yes |
+
 ## Outputs
 
 | Name | Description |
 | :-- | :-- |
 | `subnets` | contains all subnets |
 | `vnets` | contains all vnets |
+
+## Authors
+
+Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/dkooll/terraform-azurerm-vnet/graphs/contributors).
+
+## License
+
+MIT Licensed. See [LICENSE](https://github.com/dkooll/terraform-azurerm-vnet/tree/master/LICENSE) for full details.
