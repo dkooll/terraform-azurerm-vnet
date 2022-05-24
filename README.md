@@ -7,7 +7,7 @@ Using this approach we are able to build a logical data structure. The basic pri
 
 The code base is validated using [terratest](https://terratest.gruntwork.io/). These tests can be found [here](tests).
 
-The [example](examples) directory is used as the working directory. If needed it contains prerequirements and integrations to test the code.
+The [example](examples) directory is used as the working directory. It contains any prerequirements and integrations to test the code.
 
 The usage examples below show which features can be enabled and applied.
 
