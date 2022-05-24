@@ -165,3 +165,11 @@ module "vnet" {
 | :-- | :-- |
 | `subnets` | contains all subnets |
 | `vnets` | contains all vnets |
+
+## Authors
+
+Module is maintained by [Dennis Kool](https://github.com/dkooll) with help from [these awesome contributors](https://github.com/dkooll/terraform-azurerm-vnet/graphs/contributors).
+
+## License
+
+MIT Licensed. See [LICENSE](https://github.com/dkooll/terraform-azurerm-vnet/tree/master/LICENSE) for full details.
