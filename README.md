@@ -4,7 +4,7 @@
 
 Terraform module which creates VNET resources on Azure.
 
-## `Usage:` single vnet multiple dns
+## Usage: single vnet multiple dns
 
 ```hcl
 module "vnet" {
