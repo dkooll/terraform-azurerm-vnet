@@ -3,7 +3,7 @@
 # Virtual Network
 
 Terraform module which creates VNET resources on Azure. It references a single object called vnet, which contains nested keys. To be able to reference these nested key values, a list of maps is created using a local variable.
-Using this approach we are able to specify multiple subnets on multiple vnets in the data structure.
+Using this approach we are able to build a data structure. The basic principle is that the consumer needs to apply as little logic as possible.
 
 The code base is validated using terratest and the example directory is used as the working directory. If needed it contains prerequirements and integrations to test the code. The usage examples below show which features can be enabled and applied.
 
