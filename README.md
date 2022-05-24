@@ -6,7 +6,7 @@ Terraform module which creates VNET resources on Azure.
 
 ## Usage
 
-single vnet multiple dns
+### Single vnet multiple dns
 
 ```hcl
 module "vnet" {
@@ -25,7 +25,7 @@ module "vnet" {
 }
 ```
 
-single vnet multiple subnets
+### Single vnet multiple subnets
 
 ```hcl
 module "vnet" {
@@ -44,7 +44,7 @@ module "vnet" {
 }
 ```
 
-multiple vnets single subnet with endpoints
+### Multiple vnets single subnet with endpoints
 
 ```hcl
 module "vnet" {
@@ -81,7 +81,7 @@ module "vnet" {
 }
 ```
 
-single vnet single subnet with delegations
+### Single vnet single subnet with delegations
 
 ```hcl
 module "vnet" {
@@ -106,7 +106,7 @@ module "vnet" {
 }
 ```
 
-multiple vnets single subnet with multiple nsg rules
+### Multiple vnets single subnet with multiple nsg rules
 
 ```hcl
 module "vnet" {
