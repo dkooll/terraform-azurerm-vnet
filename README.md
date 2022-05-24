@@ -5,17 +5,6 @@
 
 Terraform module which creates VNET resources on Azure.
 
-## Resources
-
-| Name | Type |
-| :-- | :-- |
-| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
-
 ## Usage
 
 single vnet multiple dns
@@ -154,6 +143,17 @@ module "vnet" {
   }
 }
 ```
+
+## Resources
+
+| Name | Type |
+| :-- | :-- |
+| [azurerm_resource_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_virtual_network_dns_servers](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_network_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [azurerm_subnet_network_security_group_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 
 ## Inputs
 
