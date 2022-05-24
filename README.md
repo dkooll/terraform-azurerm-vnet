@@ -5,8 +5,9 @@
 Terraform module which creates VNET resources on Azure. It references a single object called vnet, which contains nested keys. To be able to reference these nested key values, a list of maps is created using a local variable.
 Using this approach we are able to build a logical data structure. The basic principle is that the consumer needs to apply as little logic as possible.
 
-The code base is validated using [terratest](https://terratest.gruntwork.io/) and the `example` directory is used as the working directory. If needed it contains prerequirements and integrations to test the code.
+The code base is validated using [terratest](https://terratest.gruntwork.io/). These tests can be found [here](examples)
 
+The [example](examples) directory is used as the working directory. If needed it contains prerequirements and integrations to test the code.
 The usage examples below show which features can be enabled and applied.
 
 ## Usage: single vnet multiple dns
