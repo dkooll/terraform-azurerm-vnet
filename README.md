@@ -9,7 +9,7 @@ Terraform module which creates VNET resources on Azure.
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -28,7 +28,7 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -47,7 +47,7 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -84,7 +84,7 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -109,7 +109,7 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  version = "1.0.0"
+  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
       cidr     = ["10.18.0.0/16"]
@@ -157,6 +157,7 @@ module "vnet" {
 | Name | Description | Type | Required |
 | :-- | :-- | :-- | :-- |
 | `vnets` | describes vnet related configuration | object | yes |
+| `resourcegroup` | name of the resource group | string | yes |
 
 ## Outputs
 
