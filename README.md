@@ -2,14 +2,16 @@
 
 # Virtual Network
 
-Terraform module which creates VNET resources on Azure. It references a single object called vnet, which contains nested keys. To be able to reference these nested key values, a list of maps is created using a local variable.
-Using this approach we are able to build a logical data structure. The basic principle is that the consumer needs to apply as little logic as possible.
+Terraform module which creates virtual network resources on Azure.
 
-The code base is validated using [terratest](https://terratest.gruntwork.io/). These tests can be found [here](tests).
+The below features are made available:
 
-The [example](examples) directory contains any prerequirements and integrations to test the code and is set as the working directory.
+- Multiple virtual networks
+- Multiple subnet on each virtual network
+- Network security group on each subnet with multiple rules
+- Terratest is used to validate different integrations in [examples](examples)
 
-The below examples shows the usage and available features when consuming the module.
+The below examples shows the usage when consuming the module:
 
 ## Usage: single vnet multiple dns
 
