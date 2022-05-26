@@ -1,5 +1,5 @@
 module "vnet" {
-  source        = "../"
+  source        = "github.com/dkooll/terraform-azurerm-vnet"
   resourcegroup = "rg-network-dev-001"
   vnets = {
     vnet1 = {
