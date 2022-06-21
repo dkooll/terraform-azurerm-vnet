@@ -7,8 +7,10 @@ provider "azurerm" {
 #----------------------------------------------------------------------------------------
 
 resource "azurerm_resource_group" "rg" {
-  name     = var.resourcegroup
-  location = "westeurope"
+  for_each = var.vnets
+
+  name     = each.value.resource_group
+  location = each.value.location
 }
 
 #----------------------------------------------------------------------------------------
@@ -18,8 +20,8 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_virtual_network" "vnets" {
   for_each = var.vnets
 
-  name                = "vnet-${var.env}-${each.value.location}-001"
-  resource_group_name = azurerm_resource_group.rg.name
+  name                = "vnet-${var.env}-${each.key}"
+  resource_group_name = azurerm_resource_group.rg[each.key].name
   location            = each.value.location
   address_space       = each.value.cidr
 }
@@ -45,7 +47,7 @@ resource "azurerm_subnet" "subnets" {
   }
 
   name                 = each.value.subnet_name
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = each.value.rg_name
   virtual_network_name = each.value.virtual_network_name
   address_prefixes     = each.value.address_prefixes
   service_endpoints    = each.value.endpoints
@@ -74,7 +76,7 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   name                = each.value.nsg_name
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = each.value.rg_name
   location            = each.value.location
 
   dynamic "security_rule" {
