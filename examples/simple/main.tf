@@ -1,5 +1,5 @@
 module "vnet" {
-  source = "../../"
+  source = "github.com/dkooll/terraform-azurerm-vnet"
   vnets = {
     vnet1 = {
       cidr           = ["10.18.0.0/16"]
