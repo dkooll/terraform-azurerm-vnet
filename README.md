@@ -18,14 +18,14 @@ The below examples shows the usage when consuming the module:
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      dns      = ["8.8.8.8","7.7.7.7"]
-      location = "westeurope"
+      cidr          = ["10.18.0.0/16"]
+      dns           = ["8.8.8.8","7.7.7.7"]
+      location      = "westeurope"
+      resourcegroup = "rg-network-weu"
       subnets = {
-        sn1 = {cidr = ["10.18.1.0/24"]}
+        sn1 = { cidr = ["10.18.1.0/24"] }
       }
     }
   }
@@ -37,14 +37,14 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      location = "westeurope"
+      cidr          = ["10.18.0.0/16"]
+      location      = "westeurope"
+      resourcegroup = "rg-network-weu"
       subnets = {
-        sn1 = {cidr = ["10.18.1.0/24"]}
-        sn2 = {cidr = ["10.18.2.0/24"]}
+        sn1 = { cidr = ["10.18.1.0/24"] }
+        sn2 = { cidr = ["10.18.2.0/24"] }
       }
     }
   }
@@ -56,11 +56,11 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      location = "westeurope"
+      cidr          = ["10.18.0.0/16"]
+      location      = "westeurope"
+      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -73,8 +73,9 @@ module "vnet" {
     }
 
     vnet2 = {
-      cidr     = ["10.19.0.0/16"]
-      location = "eastus2"
+      cidr          = ["10.19.0.0/16"]
+      location      = "eastus2"
+      resourcegroup = "rg-network-eus2"
       subnets = {
         sn1 = {
           cidr = ["10.19.1.0/24"]
@@ -93,11 +94,11 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      location = "westeurope"
+      cidr          = ["10.18.0.0/16"]
+      location      = "westeurope"
+      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -118,11 +119,11 @@ module "vnet" {
 ```hcl
 module "vnet" {
   source = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      location = "westeurope"
+      cidr          = ["10.18.0.0/16"]
+      location      = "westeurope"
+      resourcegroup = "rg-network-weu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -135,8 +136,9 @@ module "vnet" {
     }
 
     vnet2 = {
-      cidr     = ["10.19.0.0/16"]
-      location = "eastus2"
+      cidr          = ["10.19.0.0/16"]
+      location      = "eastus2"
+      resourcegroup = "rg-network-eus2"
       subnets = {
         sn1 = {
           cidr = ["10.19.1.0/24"]
