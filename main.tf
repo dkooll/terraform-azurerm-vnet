@@ -9,7 +9,7 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   for_each = var.vnets
 
-  name     = each.value.resource_group
+  name     = each.value.resourcegroup
   location = each.value.location
 }
 
