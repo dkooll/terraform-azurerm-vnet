@@ -1,11 +1,11 @@
 module "vnet" {
-  source        = "github.com/dkooll/terraform-azurerm-vnet"
-  resourcegroup = "rg-network-dev-001"
+  source = "../../"
   vnets = {
     vnet1 = {
-      cidr     = ["10.18.0.0/16"]
-      dns      = ["8.8.8.8"]
-      location = "westeurope"
+      cidr           = ["10.18.0.0/16"]
+      dns            = ["8.8.8.8"]
+      location       = "westeurope"
+      resource_group = "rg-network-weeu"
       subnets = {
         sn1 = {
           cidr = ["10.18.1.0/24"]
@@ -18,8 +18,9 @@ module "vnet" {
     }
 
     vnet2 = {
-      cidr     = ["10.19.0.0/16"]
-      location = "eastus2"
+      cidr           = ["10.19.0.0/16"]
+      location       = "eastus2"
+      resource_group = "rg-network-eus2"
       subnets = {
         sn1 = { cidr = ["10.19.1.0/24"] }
         sn2 = { cidr = ["10.19.2.0/24"] }
