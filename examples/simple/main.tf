@@ -22,7 +22,7 @@ module "vnet" {
       location      = "eastus2"
       resourcegroup = "rg-network-eus2"
       subnets = {
-        sn1 = { cidr = ["10.19.1.0/24"] }
+        sn1 = { cidr = ["10.19.1.0/24"], enforce_priv_link_policies = true }
         sn2 = { cidr = ["10.19.2.0/24"] }
       }
     }
